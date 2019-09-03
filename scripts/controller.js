@@ -81,6 +81,20 @@ btnConnect.addEventListener('click', function (e) {
     tr.appendChild(msgTime);
     tbody.appendChild(tr);
     tbl.appendChild(tbody);
+    let tbl = document.getElementById('publishReceiver');
+    let tbody = document.getElementById('msg');
+    let tr = document.createElement('tr');
+    let msgTopic = document.createElement('td');
+    let msgPayload = document.createElement('td');
+    let msgTime = document.createElement('td');
+    msgTopic.appendChild(document.createTextNode(finalTopic));
+    msgPayload.appendChild(document.createTextNode(payload));
+    msgTime.appendChild(document.createTextNode(moment().format('llll')));
+    tr.appendChild(msgTopic);
+    tr.appendChild(msgPayload);
+    tr.appendChild(msgTime);
+    tbody.appendChild(tr);
+    tbl.appendChild(tbody);
     // $('.broker tbody').append("<tr><td>" + finalTopic + "</td><td>" + payload + "</td><td>" + moment().format('llll') + "</td></tr>");
 
   })
