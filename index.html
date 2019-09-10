@@ -4,6 +4,9 @@
   <title>MQTT</title>
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html{overflow-x: hidden}
+  </style>
   <header>
     <h1 class="text-light">MQTT over Web Socket</h1>
   </header>
@@ -11,12 +14,13 @@
 <br>
 
 <body class="bg-dark">
-
   <div class="row">
     <form class="col-md-3 border rounded" style="margin-left:2%">
-      <nav class="text-light text-center bg-info"><h1>Broker</h1></nav><br>
+      <nav class="text-light text-center bg-info">
+        <h1>Broker</h1>
+      </nav><br>
       <label class="text-light text-bold" for="address">Address:</label>
-      <input type="text" class="form-control" id="address" placeholder="Enter address">
+      <input type="text" class="form-control" id="address" value="wss://test.mosquitto.org:8081/mqtt">
       <br>
       <button class="btn btn-info align-items-center" id="connect" style="margin-bottom: 20px;">Connect</button>
       <button class="btn btn-info align-items-center" id="disconnect" style="margin-bottom: 20px;">Disconnect</button><br>
@@ -24,16 +28,19 @@
       <input type="text" class="form-control btn-link disabled" aria-disabled="true" id="status"><br>
     </form>
     <form class="col-md-3 border rounded" style="margin-left:2%">
-      <nav class="text-light text-center bg-info"><h1>Publish</h1></nav><br>
+      <nav class="text-light text-center bg-info">
+        <h1>Publish</h1>
+      </nav><br>
       <label class="text-light text-bold" for="topic">Topic:</label>
       <input type="text" class="form-control" id="pubTopic" placeholder="Enter topic"><br>
       <label class="text-light text-bold" for="payload">Payload:</label>
       <input type="text" class="form-control" id="pubPayload" placeholder="Enter payload"><br>
       <button class="btn btn-info align-items-center" id="publish" style="margin-bottom: 20px;">Publish</button>
-
     </form>
     <form class="col-sm-3 border rounded" style="margin-left:2%">
-      <nav class="text-light text-center bg-info"><h1>Subscribe</h1></nav><br>
+      <nav class="text-light text-center bg-info">
+        <h1>Subscribe</h1>
+      </nav><br>
       <label class="text-light text-bold" id="topic" for="topicsubscribe">Topic:</label>
       <input type="text" class="form-control" id="subTopic" placeholder="Enter subtopic"><br>
       <button class="btn btn-info align-items-center" id="btnSubscribe" style="margin-bottom: 10px;">Subscribe</button>
@@ -45,9 +52,11 @@
       <div>
         <div>
           <label>
-              <nav class="text-light text-center bg-info"><h2>Incoming Messages</h2></nav><br>
+            <nav class="text-light text-center bg-info">
+              <h2>Incoming Messages</h2>
+            </nav><br>
           </label>
-          <table class="table  table-hover" id="receiver">
+          <table class="table  table-bordered" id="publishReceiver">
             <thead>
               <tr>
                 <th class="text-light">Topic</th>
@@ -55,8 +64,7 @@
                 <th class="text-light">Time Stamp</th>
               </tr>
             </thead>
-            <tbody id="msg" class="text-light">
-
+            <tbody id="tbReceive" class="text-light">
             </tbody>
             <div class="row">
             </div>
@@ -64,14 +72,15 @@
         </div>
       </div>
     </div>
-
     <div class="border rounded col-sm-3" style="margin-left:2%">
       <div>
         <div>
           <label>
-              <nav class="text-light text-center bg-info"><h2>Published Messages</h2></nav><br>
+            <nav class="text-light text-center bg-info">
+              <h2 class="text-center">Published Messages</h2>
+            </nav><br>
           </label>
-          <table class="table  table-hover" id="publishReceiver">
+          <table class="table  table-bordered" id="pubReceiver">
             <thead>
               <tr>
                 <th class="text-light">Topic</th>
@@ -79,38 +88,35 @@
                 <th class="text-light">Time Stamp</th>
               </tr>
             </thead>
-            <tbody id="msg" class="text-light">
-
+            <tbody id="tbPublish" class="text-light">
+              <div class="row">
+              </div>
             </tbody>
-
           </table>
         </div>
       </div>
     </div>
-
-
     <div class="border rounded col-sm-3" style="margin-left:2%">
+      <div>
         <div>
-          <div>
-            <label>
-                <nav class="text-light text-center bg-info"><h2>Topics Subscribed</h2></nav><br>
-            </label>
-            <table class="table  table-hover id="topicReceiver">
-              <thead>
-                <tr>
-                  <th class="text-light">Topic</th>
-                  <th class="text-light">Time Stamp</th>
-                </tr>
-              </thead>
-              <tbody id="msg" class="text-light">
-  
-              </tbody>
-            </table>
-          </div>
+          <label>
+            <nav class="text-light text-center bg-info">
+              <h2 class="text-center">Topics Subscribed</h2>
+            </nav><br>
+          </label>
+          <table class="table  table-bordered" id="topicReceiver">
+            <thead>
+              <tr>
+                <th class="text-light">Topic</th>
+                <th class="text-light">Time Stamp</th>
+              </tr>
+            </thead>
+            <tbody id="tbSub" class="text-light">
+            </tbody>
+          </table>
         </div>
       </div>
-
-
+    </div>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
